@@ -12,7 +12,7 @@ const Menu = () => {
                     <Nav className="me-auto">
                         <Link to={'/'} className="nav-link">Acceuil</Link>
                         <Link to={'...'} className="nav-link"></Link>
-                        <span style={{ color: 'white' }}> <Button className="btn btn-secondary" onClick={logout}>Se Deconnecter</Button></span>
+                        {/* <span style={{ color: 'white' }}> <Button className="btn btn-secondary" onClick={logout}>Se Deconnecter</Button></span> */}
                         <Link to={'...'} className="nav-link">Se connecter</Link>
                     </Nav>
                 </Navbar.Collapse>

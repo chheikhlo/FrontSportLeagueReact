@@ -1,8 +1,9 @@
 import { BrowserRouter } from 'react-router-dom';
-import Menu from './core/components/layout/Menu';
-import MainRoutes from './core/routes/MainRoutes';
+import Menu from './core/components/layouts/Menu';
+import SportLeagueRoutes from './core/routes/SportLeagueRoutes'
 import './App.css';
-import Footer from './core/components/layout/Footer';
+import Footer from './core/components/layouts/Footer';
+
 
 
 function App() {
@@ -10,11 +11,11 @@ function App() {
     <>
       <BrowserRouter>
         <Menu />
-        <MainRoutes />
+        <SportLeagueRoutes></SportLeagueRoutes>
       </BrowserRouter>
       <br /><br /><br />
       <div>
-        <Footer />
+        <Footer></Footer>
       </div>
     </>
   );
