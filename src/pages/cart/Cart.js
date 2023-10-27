@@ -1,67 +1,87 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import api from '../../services/api';
 
-const Cart = ({ match }) => {
-    const [cart, setCart] = useState({});
-    const cartId = match.params.id;
+const Cart = () => {
+    const [cartItems, setCartItems] = useState([]);
 
     useEffect(() => {
-        api.get(`/cart/${cartId}`)
+        // Récupérer les produits dans le panier depuis le backend
+        api.get('/cart')
             .then(response => {
-                setCart(response.data);
+                setCartItems(response.data);
             })
             .catch(error => {
-                console.error('Error fetching cart details:', error);
+                console.error('Erreur lors de la récupération du panier :', error);
             });
-    }, [cartId]);
+    }, []);
 
-    const handleConfirm = () => {
-        const updatedCart = { ...cart };
-
-        // Logique pour mettre à jour les quantités des produits dans l'objet updatedCart
-        // parcourir cart.products et mettre à jour les quantités
-
-        // PUT pour mettre à jour le panier avec les nouvelles quantités
-
-        api.put(`/cart/${cartId}`, updatedCart)
+    const handleRemoveFromCart = (productId) => {
+        // Appeler l'API pour supprimer le produit du panier
+        api.delete(`/cart/${productId}`)
             .then(response => {
-
-                console.log('Cart confirmed and quantities updated successfully:', response.data);
+                // Mettre à jour l'état du panier après la suppression
+                setCartItems(cartItems.filter(item => item.productId !== productId));
             })
             .catch(error => {
-                console.error('Error confirming cart:', error);
+                console.error('Erreur lors de la suppression du produit du panier :', error);
             });
     };
 
+    const handleUpdateQuantity = (productId, newQuantity) => {
+        // Appeler l'API pour mettre à jour la quantité du produit dans le panier
+        api.put(`/cart/${productId}`, { quantity: newQuantity })
+            .then(response => {
+                // Mettre à jour l'état du panier après la mise à jour de la quantité
+                setCartItems(cartItems.map(item => {
+                    if (item.productId === productId) {
+                        return { ...item, quantity: newQuantity };
+                    }
+                    return item;
+                }));
+            })
+            .catch(error => {
+                console.error('Erreur lors de la mise à jour de la quantité du produit dans le panier :', error);
+            });
+    };
 
     return (
-        <div>
-            <h1>Cart</h1>
-            <Table striped bordered hover>
+        <div className="container mt-5">
+            <h1>Votre Panier</h1>
+            <Table striped bordered hover responsive>
                 <thead>
                     <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
+                        <th>Produit</th>
+                        <th>Quantité</th>
+                        <th>Prix unitaire</th>
+                        <th>Total</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {/* on vérifie si cart.products existe (n'est pas null ou undefined*/}
-                    {cart.products && cart.products.map((product, index) => (
-                        <tr key={index}>
-                            <td>{product.nom}</td>
-                            <td>{product.quantite}</td>
-                            <td>{product.price} €</td>
+                    {cartItems.map(item => (
+                        <tr key={item.productId}>
+                            <td>{item.nom}</td>
+                            <td>
+                                <input
+                                    type="number"
+                                    value={item.quantity}
+                                    onChange={(e) => handleUpdateQuantity(item.productId, parseInt(e.target.value))}
+                                />
+                            </td>
+                            <td>{item.prix} €</td>
+                            <td>{item.total} €</td>
+                            <td>
+                                <Button variant="danger" onClick={() => handleRemoveFromCart(item.productId)}>Delete</Button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
-
             </Table>
-            <Button onClick={handleConfirm} variant="primary">Confirm Cart</Button>
         </div>
     );
 };
 
 export default Cart;
+
 

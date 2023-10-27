@@ -27,7 +27,7 @@ const ListProduct = () => {
                         <Card.Text>Qte: {product.quantite} </Card.Text>
                         <Card.Text>Price: {product.prix} €</Card.Text>
                         <Button variant="primary">
-                            <Link to={`/cart/${product._id}`} style={{ color: 'white', textDecoration: 'none' }}>Add To Cart</Link>
+                            <Link to={`/cart`} style={{ color: 'white', textDecoration: 'none' }}>Add To Cart</Link>
                         </Button>
                         <Button variant="primary">
                             <Link to={`/addproduct`} style={{ color: 'white', textDecoration: 'none' }}>Add Product</Link>

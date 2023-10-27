@@ -14,8 +14,8 @@ export default function SportLeagueRoutes() {
             <Route path="/" element={<Home></Home>} />
             <Route path="/addproduct" element={<AddProduct></AddProduct>} />
             <Route path="/products" element={<ListProduct></ListProduct>} />
-            <Route path="/putproduct/:Id" element={<PutProduct></PutProduct>} />
-            <Route path="/deleteproduct/:Id" element={<DeleteProduct></DeleteProduct>} />
+            <Route path="/putproduct/:id" element={<PutProduct></PutProduct>} />
+            <Route path="/deleteproduct/:id" element={<DeleteProduct></DeleteProduct>} />
             <Route path="/cart" element={<Cart></Cart>} />
         </Routes>
     )

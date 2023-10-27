@@ -16,7 +16,7 @@ const DeleteProduct = () => {
     const handleDelete = async () => {
         try {
             // Envoyer une requête DELETE pour supprimer le produit avec l'ID spécifié
-            await api.delete(`/admis/delete/product/${id}`);
+            await api.delete(`/admin/delete/product/${id}`);
             window.location.href = '/products';
             handleClose(); // Fermer le modal après la suppression
         } catch (error) {
