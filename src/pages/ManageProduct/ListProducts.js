@@ -24,8 +24,8 @@ const ListProduct = () => {
                     <Card.Body>
                         <Card.Title>{product.nom}</Card.Title>
                         <Card.Text>Sport: {product.sport} </Card.Text>
-                        <Card.Text>Qte: {product.quantite_disponible} </Card.Text>
-                        <Card.Text>Price: {product.prix_location} €</Card.Text>
+                        <Card.Text>Qte: {product.quantite} </Card.Text>
+                        <Card.Text>Price: {product.prix} €</Card.Text>
                         <Button variant="primary">
                             <Link to={`/cart/${product._id}`} style={{ color: 'white', textDecoration: 'none' }}>Add To Cart</Link>
                         </Button>

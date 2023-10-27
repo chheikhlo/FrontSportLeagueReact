@@ -5,21 +5,21 @@ import api from '../../services/api';
 const AddProduct = () => {
     const [product, setProduct] = useState({
         nom: '',
-        prix_location: 0,
+        prix: 0,
         image: '',
-        quantite_disponible: '',
+        quantite: '',
         sport: ''
     });
 
     const handleChange = (e) => {
-        const { nom, value } = e.target;
-        setProduct({ ...product, [nom]: value });
+        const { name, value } = e.target;
+        setProduct({ ...product, [name]: value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await api.post('/products', product);
+            await api.post('/admin/add/product', product);
 
         } catch (error) {
             console.error('Error adding product:', error);
@@ -40,11 +40,11 @@ const AddProduct = () => {
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Label>prix_location</Form.Label>
+                    <Form.Label>prix</Form.Label>
                     <Form.Control
                         type="number"
-                        name="price"
-                        value={product.prix_location}
+                        name="prix"
+                        value={product.prix}
                         onChange={handleChange}
                     />
                 </Form.Group>
@@ -58,11 +58,11 @@ const AddProduct = () => {
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Label>quantite_disponible </Form.Label>
+                    <Form.Label>quantite </Form.Label>
                     <Form.Control
                         type="number"
-                        name="quantite_disponible"
-                        value={product.quantite_disponible}
+                        name="quantite"
+                        value={product.quantite}
                         onChange={handleChange}
                     />
                 </Form.Group>

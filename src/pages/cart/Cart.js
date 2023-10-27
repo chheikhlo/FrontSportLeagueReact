@@ -51,7 +51,7 @@ const Cart = ({ match }) => {
                     {cart.products && cart.products.map((product, index) => (
                         <tr key={index}>
                             <td>{product.nom}</td>
-                            <td>{product.quantite_disponible}</td>
+                            <td>{product.quantite}</td>
                             <td>{product.price} €</td>
                         </tr>
                     ))}

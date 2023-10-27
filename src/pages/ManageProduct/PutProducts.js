@@ -7,9 +7,9 @@ const PutProduct = () => {
     const { id } = useParams();
     const [product, setProduct] = useState({
         nom: '',
-        prix_location: 0,
+        prix: 0,
         image: '',
-        quantite_disponible: '',
+        quantite: '',
         sport: ''
     });
 
@@ -33,7 +33,7 @@ const PutProduct = () => {
         e.preventDefault();
         try {
             // Envoyer la requête PUT pour mettre à jour le produit avec l'ID spécifié
-            await api.put(`/products/${id}`, product);
+            await api.put(`/admin/put/product/${id}`, product);
 
         } catch (error) {
             console.error('Error updating product:', error);
@@ -54,11 +54,11 @@ const PutProduct = () => {
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Label>prix_location</Form.Label>
+                    <Form.Label>Prix</Form.Label>
                     <Form.Control
                         type="number"
-                        name="prix_location"
-                        value={product.prix_location}
+                        name="prix"
+                        value={product.prix}
                         onChange={handleChange}
                     />
                 </Form.Group>
@@ -72,11 +72,11 @@ const PutProduct = () => {
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Label>quantite_disponible</Form.Label>
+                    <Form.Label>quantite</Form.Label>
                     <Form.Control
                         type="number"
-                        name="quantite_disponible"
-                        value={product.quantite_disponible}
+                        name="quantite"
+                        value={product.quantite}
                         onChange={handleChange}
                     />
                 </Form.Group>
