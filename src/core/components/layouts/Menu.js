@@ -10,10 +10,10 @@ const Menu = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Link to={'/'} className="nav-link">Acceuil</Link>
-                        <Link to={'...'} className="nav-link"></Link>
+                        <Link to={'/'} className="nav-link">Home</Link>
+                        <Link to={'/addproduct'} className="nav-link">Add Products</Link>
                         {/* <span style={{ color: 'white' }}> <Button className="btn btn-secondary" onClick={logout}>Se Deconnecter</Button></span> */}
-                        <Link to={'...'} className="nav-link">Se connecter</Link>
+                        <Link to={'/auth/login'} className="nav-link">Connexion</Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

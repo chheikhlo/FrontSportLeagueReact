@@ -5,10 +5,10 @@ const Home = () => {
     return (
         <div className="home-container">
             <div className="centered-content">
-                <h1>Bienvenue sur LSA Location</h1>
-                <h6>Découvrez la liste de nos matériels sportifs sous location</h6> 
-                <Link to="..." className="btn btn-primary">
-                    Parcourir nos produits
+                <h1>Bienvenue sur LSA Location</h1><br></br>
+                <h6>Découvrez la liste de nos matériels sportifs sous location</h6>
+                <Link to="/products" className="btn btn-primary">
+                    List Product
                 </Link>
             </div>
         </div>

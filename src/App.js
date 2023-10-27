@@ -8,16 +8,14 @@ import Footer from './core/components/layouts/Footer';
 
 function App() {
   return (
-    <>
+    <div className='App'>
       <BrowserRouter>
         <Menu />
         <SportLeagueRoutes></SportLeagueRoutes>
-      </BrowserRouter>
-      <br /><br /><br />
-      <div>
         <Footer></Footer>
-      </div>
-    </>
+      </BrowserRouter>
+
+    </div>
   );
 }
 
