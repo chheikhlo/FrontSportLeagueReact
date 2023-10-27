@@ -11,7 +11,6 @@ const Menu = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Link to={'/'} className="nav-link">Home</Link>
-                        <Link to={'/addproduct'} className="nav-link">Add Products</Link>
                         {/* <span style={{ color: 'white' }}> <Button className="btn btn-secondary" onClick={logout}>Se Deconnecter</Button></span> */}
                         <Link to={'/auth/login'} className="nav-link">Connexion</Link>
                     </Nav>

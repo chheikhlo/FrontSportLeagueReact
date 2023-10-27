@@ -29,6 +29,16 @@ const ListProduct = () => {
                         <Button variant="primary">
                             <Link to={`/cart/${product._id}`} style={{ color: 'white', textDecoration: 'none' }}>Add To Cart</Link>
                         </Button>
+                        <Button variant="primary">
+                            <Link to={`/addproduct`} style={{ color: 'white', textDecoration: 'none' }}>Add Product</Link>
+                        </Button>
+                        <Button variant="primary">
+                            <Link to={`/putproduct/${product._id}`} style={{ color: 'white', textDecoration: 'none' }}>Edit Product</Link>
+                        </Button>
+                        <Button variant="primary">
+                            <Link to={`/deleteproduct/${product._id}`} style={{ color: 'white', textDecoration: 'none' }}>Delete Product</Link>
+                        </Button>
+
                     </Card.Body>
                 </Card>
             ))}
