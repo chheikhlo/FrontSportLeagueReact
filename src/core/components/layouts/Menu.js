@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Container, Button, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 //import './Menu.css';
 
