@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import './Login.css';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [formData, setFormData] = useState({});
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -18,8 +20,8 @@ const Login = () => {
         e.preventDefault();
         axios.post('http://localhost:9000/user/login', formData)
             .then(resp => {
-                if (resp.status === 200) {
-                    alert('Authentification réussie');
+                if (resp.status === 200) {             
+                    navigate('/products');
                 } else {
                     setError('Identifiants incorrects. Veuillez réessayer.');
                 }
@@ -62,12 +64,11 @@ const Login = () => {
                         className="input"
                     />
                 </div>
-                <button type="submit" className="button">
-                    Se connecter
-                </button>
+                <button type="submit" className="button">Se connecter</button>
             </form>
         </div>
     );
 }
 
 export default Login;
+
