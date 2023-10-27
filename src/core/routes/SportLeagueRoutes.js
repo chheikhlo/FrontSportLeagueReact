@@ -4,8 +4,8 @@ import Home from '../../pages/home/home'
 import AddProduct from '../../pages/ManageProduct/AddProduct'
 import ListProduct from '../../pages/ManageProduct/ListProducts'
 import Cart from '../../pages/cart/Cart'
-import PutProduct from '../../pages/ManageProduct/PutProducts'
-import DeleteProduct from '../../pages/ManageProduct/DeleteProduct'
+import Login from '../../pages/authentification/Login'
+import Register from '../../pages/authentification/Register'
 
 export default function SportLeagueRoutes() {
     return (
@@ -17,6 +17,8 @@ export default function SportLeagueRoutes() {
             <Route path="/putproduct/:id" element={<PutProduct></PutProduct>} />
             <Route path="/deleteproduct/:id" element={<DeleteProduct></DeleteProduct>} />
             <Route path="/cart" element={<Cart></Cart>} />
+            <Route path="/Signin" element={<Login></Login>} />
+            <Route path="/Signup" element={<Register></Register>} />
         </Routes>
     )
 }

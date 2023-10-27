@@ -1,21 +1,21 @@
-import React from 'react';
-import './Footer.css'; // Assurez-vous d'avoir un fichier CSS pour les styles
+import React from "react";
 
-function Footer() {
-  return (
-    <footer className="footer">
-      <div className="footer-content">
-        <div className="contact-info">
-          Nous contacter:
-          <div className="email">Mail: sportrentalpro@gmail.com</div>
-          <div className="phone">Numéro: +3378956321</div>
-        </div>
-        <div className="copyright">
-          Tous droits réservés &copy; {new Date().getFullYear()} SportRentalPro
-        </div>
-      </div>
-    </footer>
-  );
-}
+    const Footer = () => {
+        return (
+
+                <footer className="bg-dark text-light text-center py-3" style={{ minHeight: "40vh" }}>
+                
+                    <div >
+                        Nous contacter:
+                        <div >Mail: sportrentalpro@gmail.com</div>
+                        <div >Numéro: +3378956321</div>
+                    </div>
+                    <div>
+                        Tous droits réservés &copy; {new Date().getFullYear()} SportRentalPro
+                    </div>
+            
+                </footer>
+            );  
+        };
 
 export default Footer;
