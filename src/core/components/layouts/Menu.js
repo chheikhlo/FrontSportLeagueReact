@@ -1,6 +1,8 @@
-import { Container, Button, Nav, Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Menu.css';
 
+<<<<<<< HEAD
 const Menu = () => {
 
     return (
@@ -18,6 +20,23 @@ const Menu = () => {
             </Container>
         </Navbar>
     );
+=======
+function Menu() {
+  return (
+    <header className="navbar">
+      <div className="navbar-content">
+        <div className="app-name">SportRentalPro</div>
+        <div className="nav-buttons">
+          <Link to="/signup" className="sign-up-button">Sign Up</Link>
+          <Link to="/signin" className="sign-in-button">Sign In</Link>
+        </div>
+      </div>
+    </header>
+  );
+>>>>>>> 5c52e20 (add login)
 }
 
 export default Menu;
+
+
+
