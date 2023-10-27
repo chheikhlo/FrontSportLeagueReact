@@ -32,7 +32,7 @@ const Register = () => {
         });
 
         // requête POST pour l'inscription
-        axios.post('http://localhost:9000/user/register', formData)
+        axios.post('http://localhost:9006/user/register', formData)
             .then(resp => {
                 if (resp.status === 200) {
                     alert("Inscription réussie!");

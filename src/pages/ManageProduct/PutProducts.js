@@ -5,13 +5,7 @@ import api from '../../services/api';
 
 const PutProduct = () => {
     const { id } = useParams();
-    const [product, setProduct] = useState({
-        nom: '',
-        prix: 0,
-        image: '',
-        quantite: '',
-        sport: ''
-    });
+    const [product, setProduct] = useState({});
 
     useEffect(() => {
         // On Charge les détails du produit à mettre à jour en utilisant l'ID du paramètre d'URL
@@ -24,7 +18,7 @@ const PutProduct = () => {
             });
     }, [id]);
 
-    const handleChange = (e) => {
+    const handleInputChange = (e) => {
         const { name, value } = e.target;
         setProduct({ ...product, [name]: value });
     };
@@ -50,7 +44,7 @@ const PutProduct = () => {
                         type="text"
                         name="nom"
                         value={product.nom}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -59,7 +53,7 @@ const PutProduct = () => {
                         type="number"
                         name="prix"
                         value={product.prix}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -68,7 +62,7 @@ const PutProduct = () => {
                         type="text"
                         name="image"
                         value={product.image}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -77,7 +71,7 @@ const PutProduct = () => {
                         type="number"
                         name="quantite"
                         value={product.quantite}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -86,7 +80,7 @@ const PutProduct = () => {
                         type="text"
                         name="sport"
                         value={product.sport}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                     />
                 </Form.Group>
                 <Button variant="primary" type="submit">

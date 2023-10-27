@@ -18,7 +18,7 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:9000/user/login', formData)
+        axios.post('http://localhost:9006/user/login', formData)
             .then(resp => {
                 if (resp.status === 200) {             
                     navigate('/products');
