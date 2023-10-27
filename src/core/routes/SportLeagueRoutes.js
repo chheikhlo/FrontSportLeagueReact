@@ -6,6 +6,8 @@ import ListProduct from '../../pages/ManageProduct/ListProducts'
 import Cart from '../../pages/cart/Cart'
 import Login from '../../pages/authentification/Login'
 import Register from '../../pages/authentification/Register'
+import PutProduct from '../../pages/ManageProduct/PutProducts'
+import DeleteProduct from '../../pages/ManageProduct/DeleteProduct'
 
 export default function SportLeagueRoutes() {
     return (
