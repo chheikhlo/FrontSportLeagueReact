@@ -62,7 +62,7 @@ const Product = () => {
                             <Card.Text>Qte: {product.quantite} </Card.Text>
                             <Card.Text>Price: {product.prix} €</Card.Text>
                             {user ?
-                            
+
                                 <Button
                                     variant="primary"
                                     onClick={() => handleAddToCart(product._id)}

@@ -30,7 +30,7 @@ const Register = () => {
             mot_de_passe: hashedPassword,
         });
 
-        axios.post('http://localhost:9006/user/register', formData)
+        axios.post('http://10.0.50.27:9000/user/register', formData)
             .then(resp => {
                 if (resp.status === 200) {
                     alert("Inscription réussie!");
