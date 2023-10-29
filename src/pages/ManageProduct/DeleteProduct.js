@@ -2,10 +2,9 @@ import React, { useState, useContext } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useParams, Link } from 'react-router-dom';
 import api from '../../services/api';
-import { UserContext } from "../../App";
-
+import { UserContext } from '../../core/context/AuthContext';
 const DeleteProduct = () => {
-    const { isLoggedIn } = useContext(UserContext);
+    const [ user ] = useContext(UserContext);
     const { id } = useParams();
     const [show, setShow] = useState(true);
 
@@ -29,10 +28,10 @@ const DeleteProduct = () => {
             <Modal.Header closeButton>
                 <Modal.Title>Confirmation de suppression</Modal.Title>
             </Modal.Header>
-            {isLoggedIn ?
-                (isLoggedIn.roles.length === 2 ?
+            {user ?
+                (user.roles.length === 2 ?
                     <Modal.Body>
-                        Êtes-vous sûr de vouloir Supprimer ce user ?
+                        Êtes-vous sûr de vouloir Supprimer ce produit ?
                     </Modal.Body> :
                     <></>)
                 :
@@ -40,8 +39,8 @@ const DeleteProduct = () => {
             }
 
             <Modal.Footer>
-                {isLoggedIn ?
-                    (!isLoggedIn.roles.length !== 2 ?
+                {user ?
+                    (!user.roles.length !== 2 ?
                         <Link to={`/products`}>
                             <Button variant="secondary" onClick={handleClose}>
                                 Annuler
@@ -50,8 +49,8 @@ const DeleteProduct = () => {
                         <></>) :
                     <></>
                 }
-                {isLoggedIn ?
-                    (!isLoggedIn.roles.length !== 2 ?
+                {user ?
+                    (!user.roles.length !== 2 ?
                         <Button variant="danger" onClick={handleDelete}>
                             Supprimer
                         </Button> :

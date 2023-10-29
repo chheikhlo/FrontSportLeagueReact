@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
+import api, { setAuthToken } from "../../services/api";
 import './Login.css';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../App'
+import { UserContext } from '../../core/context/AuthContext';
 
 const Login = () => {
-    const { setIsLoggedIn } = useContext(UserContext);
     const [formData, setFormData] = useState({});
     const [error, setError] = useState('');
+    const [ user, setUser ] = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleInputChange = (e) => {
@@ -18,12 +18,16 @@ const Login = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:9006/user/login', formData)
+        console.log(formData);
+        api.post('/user/login', formData)
             .then(resp => {
                 if (resp.status === 200) {
-                    setIsLoggedIn(resp.data);
+                    setUser(resp.data);
+                    console.log(user);
+                    sessionStorage.setItem('USER', JSON.stringify(resp.data));
+                    setAuthToken(resp.data.token);
                     navigate('/our-products');
                 } else {
                     setError('Identifiants incorrects. Veuillez réessayer.');
@@ -61,8 +65,8 @@ const Login = () => {
                         <input
                             type="password"
                             id="mot_de_passe"
-                            name="mot_de_passe"
-                            value={formData.mot_de_passe}
+                            name="mot_de_passe" // Change le name à "mot_de_passe"
+                            value={formData.mot_de_passe} // Utilise "password" pour la valeur
                             onChange={handleInputChange}
                             required
                             className="input"
@@ -73,7 +77,6 @@ const Login = () => {
             </div>
         </div>
     );
-}
+};
 
 export default Login;
-

@@ -2,18 +2,18 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Table } from 'react-bootstrap';
 import api from '../../services/api';
-import { UserContext } from "../../App";
+import { UserContext } from "../../core/context/AuthContext";
 
 
 const Cart = () => {
-    const { isLoggedIn } = useContext(UserContext);
+    const [ user ] = useContext(UserContext);
     const [cartItems, setCartItems] = useState([]);
     const { id } = useParams();
 
     useEffect(() => {
         api.get(`/user/get/cart/${id}`)
-            .then(response => {
-                setCartItems(response.data);
+            .then(resp => {
+                setCartItems(resp.data);
                 console.log(cartItems);
             })
             .catch(error => {
@@ -23,8 +23,8 @@ const Cart = () => {
 
     useEffect(() => {
         api.get(`/user/${id}`)
-            .then(response => {
-                setCartItems(response.data);
+            .then(resp => {
+                setCartItems(resp.data);
                 console.log(cartItems);
             })
             .catch(error => {
@@ -34,7 +34,7 @@ const Cart = () => {
 
     const handleRemoveFromCart = async (productId) => {
        await api.delete(`/cart/${productId}`)
-            .then(response => {
+            .then(resp => {
                 setCartItems(cartItems.filter(item => item.productId !== productId));
             })
             .catch(error => {
@@ -44,7 +44,7 @@ const Cart = () => {
 
     const handleConfirmCart = async () => {
         try {
-            await api.delete(`/delete/cart/${isLoggedIn._id}`);
+            await api.delete(`/delete/cart/${user._id}`);
             window.location.href = '/our-products';
         } catch (error) {
             console.error('Error deleting:', error);
@@ -55,7 +55,7 @@ const Cart = () => {
         <div className="cart-container">
 
             <div className="container mt-5">
-                <h2>Total: {isLoggedIn.total_prix_to_pay} €</h2>
+                <h2>Total: {user.total_prix_to_pay} €</h2>
                 <Button variant="primary" onClick={() => handleConfirmCart()}>Confirmer Panier</Button>
                 <h1>Votre Panier</h1>
                 <Table striped bordered hover responsive>
@@ -72,7 +72,7 @@ const Cart = () => {
                                 <td>{item.nom}</td>
                                 <td>{item.prix} €</td>
                                 <td>
-                                    <Button variant="danger" onClick={() => handleRemoveFromCart(isLoggedIn.productId)}>Delete</Button>
+                                    <Button variant="danger" onClick={() => handleRemoveFromCart(user.productId)}>Delete</Button>
                                 </td>
                             </tr>
                         ))}
