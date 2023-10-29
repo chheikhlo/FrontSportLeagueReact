@@ -1,20 +1,22 @@
 import { Container, Nav, Navbar, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../../App";
+import { UserContext } from "../../context/AuthContext";
 import React, {useContext} from "react";
 import { FaShoppingCart, FaUser, FaSignOutAlt, FaCog } from 'react-icons/fa'; // Importez les icônes nécessaires
 
 const Menu = () => {
-    const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+    const [user, setUser] = useContext(UserContext);
 
+    console.log(user);
     const logout = () => {
-        setIsLoggedIn(null);
+        setUser(undefined);
+        sessionStorage.removeItem('USER');
     }
 
     return (
         <Navbar expand="lg" bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand href="#home">LSA Location</Navbar.Brand>
+                <Link to="/"><Navbar.Brand >LSA Location</Navbar.Brand></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
@@ -22,27 +24,27 @@ const Menu = () => {
                         <Link to={'/our-products'} className="nav-link">Nos Produits</Link>
                     </Nav>
                     <Nav className="ms-auto">
-                        {isLoggedIn ?
+                        {user ?
                             <></> :
                             <Link to="/signup" className="nav-link"><FaUser /> S'inscrire</Link>
                         }
-                        {isLoggedIn ?
+                        {user ?
                             <Link to={'/'} onClick={logout} className="nav-link"><FaSignOutAlt /> Se Deconnecter</Link> :
                             <Link to={'/signin'} className="nav-link"><FaUser /> Se connecter</Link>
                         }
                         &nbsp;&nbsp;&nbsp;
-                        {isLoggedIn && isLoggedIn.roles.length === 2 &&
+                        {user && user.roles.length === 2 &&
                             <Link to={`/products`} className="nav-link"><FaCog /> Gerer Produits</Link>
                         }
-                        {isLoggedIn && isLoggedIn.roles.length === 2 &&
+                        {user && user.roles.length === 2 &&
                             <Link to={`/users`} className="nav-link"><FaCog /> Gerer Users</Link>
                         }
-                        {isLoggedIn &&
-                            <Link to={`/profil/${isLoggedIn?._id}`} className="nav-link"><FaUser /> Profil</Link>
+                        {user &&
+                            <Link to={`/profil/${user?._id}`} className="nav-link"><FaUser /> Profil</Link>
                         }
-                        {isLoggedIn ?
+                        {user ?
                             <div>
-                                <Link to={`/cart/${isLoggedIn._id}`}>
+                                <Link to={`/cart/${user._id}`}>
                                     <Button className="btn btn-secondary"><FaShoppingCart />Panier  </Button>
                                 </Link>
                             </div> :

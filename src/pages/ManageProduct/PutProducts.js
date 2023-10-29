@@ -12,9 +12,10 @@ const PutProduct = () => {
     const [alertMessage, setAlertMessage] = useState("");
 
     useEffect(() => {
-        api.get(`/products/${id}`)
-            .then(response => {
-                setProduct(response.data);
+        api.get(`/products/product-details/${id}`)
+            .then(resp => {
+                setProduct(resp.data[0]);
+                console.log(product);
                 setOpen(false);
             })
             .catch(error => {
@@ -29,12 +30,12 @@ const PutProduct = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await api.put(`/admin/put/product/${id}`, product)
+         api.put(`/admin/put/product/${id}`, product)
                 .then(resp => {
                     setOpen(true);
                     setAlertMessage("Produit Modifier avec succès !");
                     setProduct(resp.data);
+                    console.log(resp.data);
                 })
                 .catch(error => {
                     setOpen(true);
@@ -42,12 +43,10 @@ const PutProduct = () => {
                     console.error('Error fetching product details:', error);
                 });
 
-        } catch (error) {
-            console.error('Error updating product:', error);
-        }
     };
 
     return (
+
         <div className="putprod-container">
             <div>
                 {open && (

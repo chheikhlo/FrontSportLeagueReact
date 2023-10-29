@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Card, Button, Alert } from 'react-bootstrap';
 import api from '../../services/api';
-import { UserContext } from '../../App';
+import { UserContext } from "../../core/context/AuthContext";
 import { useNavigate } from 'react-router-dom';
 
 const Product = () => {
     const [products, setProducts] = useState([]);
-    const { isLoggedIn } = useContext(UserContext);
+    const [ user ] = useContext(UserContext);
     const navigate = useNavigate();
 
     // Les Alerts
@@ -24,12 +24,14 @@ const Product = () => {
     }, []);
 
     const handleAddToCart = (productId) => {
-        if (isLoggedIn != null) {
-            api.post('/add/product/cart', { utilisateur_id: isLoggedIn._id, produit_id: productId })
+        if (user != null) {
+            api.post('/add/product/cart', { utilisateur_id: user._id, produit_id: productId })
                 .then(resp => {
                     setOpen(true);
                     setAlertMessage("Produit Ajouter au panier");
-                    navigate('/our-products');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
                 })
                 .catch(error => {
                     setOpen(true);
@@ -59,7 +61,8 @@ const Product = () => {
                             <Card.Text>Sport: {product.sport} </Card.Text>
                             <Card.Text>Qte: {product.quantite} </Card.Text>
                             <Card.Text>Price: {product.prix} €</Card.Text>
-                            {isLoggedIn ?
+                            {user ?
+                            
                                 <Button
                                     variant="primary"
                                     onClick={() => handleAddToCart(product._id)}
