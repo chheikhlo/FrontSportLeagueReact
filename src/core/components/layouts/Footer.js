@@ -5,13 +5,14 @@ import React from "react";
 
                 <footer className="bg-dark text-light text-center py-3" style={{ minHeight: "40vh" }}>
                 
-                    <div >
-                        Nous contacter:
-                        <div >Mail: sportrentalpro@gmail.com</div>
-                        <div >Numéro: +3378956321</div>
-                    </div>
+                    <h4>Nous contacter</h4>
+                    <p>Mail: LSA@gmail.com</p>
+                    <p>Numéro: +33 789 563 210</p>
                     <div>
-                        Tous droits réservés &copy; {new Date().getFullYear()} SportRentalPro
+
+                        <div className="copyright">
+                            <p>Tous droits réservés &copy; {new Date().getFullYear()} LSA Location</p>
+                        </div>                   
                     </div>
             
                 </footer>

@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Alert } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import api from '../../services/api';
 
-const AddProduct = () => {
+const PutUsers = () => {
+    const { id } = useParams();
     const [product, setProduct] = useState({});
 
     // Les Alerts
     const [open, setOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
 
-    const handleChange = (e) => {
+    useEffect(() => {
+        api.get(`/products/${id}`)
+            .then(response => {
+                setProduct(response.data);
+                setOpen(false);
+            })
+            .catch(error => {
+                console.error('Error fetching product details:', error);
+            });
+    }, [id]);
+
+    const handleInputChange = (e) => {
         const { name, value } = e.target;
         setProduct({ ...product, [name]: value });
     };
@@ -17,18 +30,20 @@ const AddProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await api.post('/admin/add/product', product)
+            await api.put(`/admin/put/product/${id}`, product)
                 .then(resp => {
                     setOpen(true);
-                    setAlertMessage("Produit Ajouter avec succès !");
+                    setAlertMessage("Produit Modifier avec succès !");
+                    setProduct(resp.data);
                 })
                 .catch(error => {
                     setOpen(true);
-                    setAlertMessage("Erreur lors de l'ajout du nouveau produit");
+                    setAlertMessage("Erreur lors de la modification du produit");
+                    console.error('Error fetching product details:', error);
                 });
 
         } catch (error) {
-            console.error('Error adding product:', error);
+            console.error('Error updating product:', error);
         }
     };
 
@@ -42,42 +57,42 @@ const AddProduct = () => {
                 )}
             </div>
             <Container className="mt-5">
-                <h1 className="mb-4">Can you Add a Product</h1>
+                <h1 className="mb-4">Edit Product</h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
-                        <Form.Label>Nom du produit </Form.Label>
+                        <Form.Label>Nom du produit</Form.Label>
                         <Form.Control
                             type="text"
                             name="nom"
                             value={product.nom}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>prix</Form.Label>
+                        <Form.Label>Prix</Form.Label>
                         <Form.Control
                             type="number"
                             name="prix"
                             value={product.prix}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Image </Form.Label>
+                        <Form.Label>Image</Form.Label>
                         <Form.Control
                             type="text"
                             name="image"
                             value={product.image}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>quantite </Form.Label>
+                        <Form.Label>quantite</Form.Label>
                         <Form.Control
                             type="number"
                             name="quantite"
                             value={product.quantite}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
@@ -86,11 +101,11 @@ const AddProduct = () => {
                             type="text"
                             name="sport"
                             value={product.sport}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Add Product
+                        Update Product
                     </Button>
                 </Form>
             </Container>
@@ -98,4 +113,4 @@ const AddProduct = () => {
     );
 };
 
-export default AddProduct;
+export default PutUsers;

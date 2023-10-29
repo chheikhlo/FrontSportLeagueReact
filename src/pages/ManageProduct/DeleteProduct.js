@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import api from '../../services/api';
-
+import { UserContext } from "../../App";
 
 const DeleteProduct = () => {
+    const { isLoggedIn } = useContext(UserContext);
     const { id } = useParams();
     const [show, setShow] = useState(true);
 
@@ -15,10 +16,9 @@ const DeleteProduct = () => {
 
     const handleDelete = async () => {
         try {
-            // Envoyer une requête DELETE pour supprimer le produit avec l'ID spécifié
             await api.delete(`/admin/delete/product/${id}`);
             window.location.href = '/products';
-            handleClose(); // Fermer le modal après la suppression
+            handleClose();
         } catch (error) {
             console.error('Error deleting product:', error);
         }
@@ -29,17 +29,39 @@ const DeleteProduct = () => {
             <Modal.Header closeButton>
                 <Modal.Title>Confirmation de suppression</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                Êtes-vous sûr de vouloir supprimer ce produit ?
-            </Modal.Body>
+            {isLoggedIn ?
+                (isLoggedIn.roles.length === 2 ?
+                    <Modal.Body>
+                        Êtes-vous sûr de vouloir Supprimer ce user ?
+                    </Modal.Body> :
+                    <></>)
+                :
+                <></>
+            }
+
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Annuler
-                </Button>
-                <Button variant="danger" onClick={handleDelete}>
-                    Supprimer
-                </Button>
+                {isLoggedIn ?
+                    (!isLoggedIn.roles.length !== 2 ?
+                        <Link to={`/products`}>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Annuler
+                            </Button>
+                        </Link> :
+                        <></>) :
+                    <></>
+                }
+                {isLoggedIn ?
+                    (!isLoggedIn.roles.length !== 2 ?
+                        <Button variant="danger" onClick={handleDelete}>
+                            Supprimer
+                        </Button> :
+                        <></>)
+                    :
+                    <></>
+                }
             </Modal.Footer>
+
+
         </Modal>
     );
 };

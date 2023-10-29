@@ -7,7 +7,7 @@ const Home = () => {
             <div className="centered-content">
                 <h1>Bienvenue sur LSA Location</h1><br></br>
                 <h6>Découvrez la liste de nos matériels sportifs sous location</h6>
-                <Link to="/products" className="btn btn-primary">
+                <Link to="/our-products" className="btn btn-primary">
                     List Product
                 </Link>
             </div>

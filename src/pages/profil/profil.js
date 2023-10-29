@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Form, Button, Container, Alert } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import api from '../../services/api';
+import { UserContext } from "../../App";
 
-const PutProduct = () => {
+const Profil = () => {
     const { id } = useParams();
-    const [product, setProduct] = useState({});
+    const [profil, setProfil] = useState({});
+    const { isLoggedIn } = useContext(UserContext);
 
     // Les Alerts
     const [open, setOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
 
     useEffect(() => {
-        api.get(`/products/${id}`)
+        api.get(`/profil/${id}`)
             .then(response => {
-                setProduct(response.data);
+                setProfil(response.data);
                 setOpen(false);
             })
             .catch(error => {
@@ -24,17 +26,17 @@ const PutProduct = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setProduct({ ...product, [name]: value });
+        setProfil({ ...profil, [name]: value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await api.put(`/admin/put/product/${id}`, product)
+            await api.put(`/put/user/${id}`, profil)
                 .then(resp => {
                     setOpen(true);
-                    setAlertMessage("Produit Modifier avec succès !");
-                    setProduct(resp.data);
+                    setAlertMessage("Profil Modifier avec succès !");
+                    setProfil(resp.data);
                 })
                 .catch(error => {
                     setOpen(true);
@@ -48,7 +50,8 @@ const PutProduct = () => {
     };
 
     return (
-        <div className="putprod-container">
+        <div className="profil-container">
+
             <div>
                 {open && (
                     <Alert variant="success" onClose={() => setOpen(false)} dismissible>
@@ -56,56 +59,68 @@ const PutProduct = () => {
                     </Alert>
                 )}
             </div>
+            
+            {isLoggedIn ?
+                (isLoggedIn.roles.length !== 2 ?
+                    <Link to={`/delete/user/${id}`}>
+                        <Button variant="primary" type="submit">
+                            Se desinscrire
+                        </Button>
+                    </Link>:
+                    <></>):
+                    <></>
+            }
+            
             <Container className="mt-5">
-                <h1 className="mb-4">Edit Product</h1>
+                <h1 className="mb-4">Edit Profil</h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
-                        <Form.Label>Nom du produit</Form.Label>
+                        <Form.Label>Nom</Form.Label>
                         <Form.Control
                             type="text"
                             name="nom"
-                            value={product.nom}
+                            value={profil.nom}
                             onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Prix</Form.Label>
-                        <Form.Control
-                            type="number"
-                            name="prix"
-                            value={product.prix}
-                            onChange={handleInputChange}
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Image</Form.Label>
+                        <Form.Label>Prénom</Form.Label>
                         <Form.Control
                             type="text"
-                            name="image"
-                            value={product.image}
+                            name="prénom"
+                            value={profil.prenom}
                             onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>quantite</Form.Label>
+                        <Form.Label>Télephone</Form.Label>
                         <Form.Control
                             type="number"
-                            name="quantite"
-                            value={product.quantite}
+                            name="telephone"
+                            value={profil.telephone}
                             onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>sport</Form.Label>
+                        <Form.Label>email</Form.Label>
                         <Form.Control
                             type="text"
-                            name="sport"
-                            value={product.sport}
+                            name="email"
+                            value={profil.email}
+                            onChange={handleInputChange}
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>mot de passe</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="mot_de_passe"
+                            value={profil.mot_de_passe}
                             onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Update Product
+                        Update Profil
                     </Button>
                 </Form>
             </Container>
@@ -113,4 +128,4 @@ const PutProduct = () => {
     );
 };
 
-export default PutProduct;
+export default Profil;
