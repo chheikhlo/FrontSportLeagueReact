@@ -65,8 +65,8 @@ const Login = () => {
                         <input
                             type="password"
                             id="mot_de_passe"
-                            name="mot_de_passe" // Change le name à "mot_de_passe"
-                            value={formData.mot_de_passe} // Utilise "password" pour la valeur
+                            name="mot_de_passe"
+                            value={formData.mot_de_passe}
                             onChange={handleInputChange}
                             required
                             className="input"
